@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="th"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ระบบงบกำไรขาดทุน · In the Mood 2026</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bai+Jamjuree:wght@400;500;600;700&display=swap">
+<style>
+:root{--ink:#1E242C;--bg:#D5DCE4;--panel:#3A3F47;--lime:#C8F26B;--blue:#9CC3FF;--card:#F3F6F9;--line:#AEB9C6;--mut:#5B6470;--ok:#1E6B3F;--bad:#A12B2B;--warn:#8A5A00}
+*{box-sizing:border-box;margin:0}
+body{font-family:'Bai Jamjuree',Tahoma,sans-serif;background:var(--bg);color:var(--ink);font-size:16px;line-height:1.45}
+header{background:var(--panel);color:#F4F6F8;padding:18px 28px;display:flex;flex-wrap:wrap;gap:18px;align-items:center;justify-content:space-between}
+header h1{font-size:22px;font-weight:700}header h1 span{color:var(--lime)}
+header small{color:var(--blue);display:block;font-weight:400;font-size:14px}
+.kpis{display:flex;gap:12px;flex-wrap:wrap}
+.kpi{background:#4A5059;border-radius:14px;padding:8px 14px;min-width:150px}
+.kpi b{display:block;font-size:20px}.kpi i{font-style:normal;font-size:13px;color:#C9CFD8}
+.pos{color:#8FE3A8}.neg{color:#FFA3A3}
+nav{display:flex;gap:8px;padding:14px 28px 0;flex-wrap:wrap}
+nav button{font:inherit;font-weight:600;border:0;border-radius:14px 14px 0 0;padding:10px 18px;background:#C2CBD6;color:var(--ink);cursor:pointer}
+nav button.on{background:var(--card)}
+main{background:var(--card);margin:0 28px 28px;border-radius:0 18px 18px 18px;padding:26px;min-height:420px}
+h2{font-size:22px;margin-bottom:4px}p.sub{color:var(--mut);margin-bottom:16px}
+table{width:100%;border-collapse:collapse;margin:10px 0 18px}
+th,td{padding:9px 10px;border-bottom:1px solid var(--line);text-align:left;vertical-align:middle}
+th{font-size:14px;color:var(--mut);font-weight:600}td.n,th.n{text-align:right;font-variant-numeric:tabular-nums}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:18px}
+.card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:18px}
+.card h3{font-size:17px;margin-bottom:8px}
+button.b{font:inherit;font-weight:600;border:0;border-radius:12px;padding:8px 14px;background:var(--panel);color:var(--lime);cursor:pointer}
+button.b.alt{background:#E3E8EE;color:var(--ink)}button.b.red{background:#F8D5D5;color:var(--bad)}button.b.grn{background:#D0F0DC;color:var(--ok)}
+button:disabled{opacity:.4;cursor:not-allowed}
+input,select{font:inherit;padding:8px 10px;border:1px solid var(--line);border-radius:10px;background:#fff;max-width:100%}
+input[type=number]{width:140px;text-align:right}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:8px 0}
+.tag{display:inline-block;border-radius:20px;padding:2px 10px;font-size:13px;font-weight:600}
+.t-ok{background:#D0F0DC;color:var(--ok)}.t-bad{background:#F8D5D5;color:var(--bad)}.t-wait{background:#FBEBBC;color:var(--warn)}.t-lock{background:var(--panel);color:var(--lime)}
+.note{background:#FBEBBC;border:1px solid #C99A1F;border-radius:12px;padding:10px 14px;margin:10px 0;color:#5C3D00}
+.note.ok{background:#D0F0DC;border-color:#3F9A6A;color:#14532D}.note.bad{background:#F8D5D5;border-color:#CC6464;color:#7A1F1F}
+.booths{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:10px;margin:10px 0}
+.booth{border:2px solid var(--line);border-radius:14px;padding:10px;text-align:center;background:#fff;cursor:pointer;font:inherit}
+.booth.on{background:#D0F0DC;border-color:#3F9A6A}.booth b{display:block}
+.bar{height:10px;border-radius:6px;background:#DDE3EA;overflow:hidden;min-width:90px}.bar i{display:block;height:100%;background:#5E8AD6}.bar i.over{background:#CC6464}
+ol.guide{padding-left:22px}ol.guide li{margin:10px 0}
+.total td{font-weight:700;border-top:2px solid var(--ink)}
+header select{background:#4A5059;color:#F4F6F8;border:1px solid #6B727C}
+.role{display:flex;gap:8px;align-items:center;font-size:14px;color:var(--blue)}
+.gl{font-size:12px;color:var(--mut);display:block}
+ul.log{list-style:none;padding:0;margin:6px 0;max-height:260px;overflow:auto}ul.log li{padding:5px 0;border-bottom:1px dashed var(--line);font-size:14px}ul.log small{color:var(--mut)}
+.flow{display:flex;gap:6px;flex-wrap:wrap;margin:6px 0 14px}.flow span{background:#E3E8EE;border-radius:20px;padding:3px 12px;font-size:13px;font-weight:600}
+.cols2{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:18px;margin-top:14px}
+@media print{nav,button,.role,.noprint{display:none!important}header{background:#fff;color:#000}}
+@media(max-width:640px){main{margin:0 10px 20px;padding:14px}nav{padding:10px 10px 0}header{padding:14px}}
+</style></head><body>
+<header><h1>ระบบงบกำไรขาดทุน <span>In the Mood 2026</span><small>ข้อมูลบันทึกในเบราว์เซอร์เครื่องนี้ · ตัวเลขเป็นข้อมูลตัวอย่าง</small></h1><div class="kpis" id="kpis"></div><div class="role"><label for="role">บทบาทผู้ใช้</label><select id="role"></select></div></header>
+<nav id="nav"></nav><main id="main"></main>
+<script>
+const GLX={venue:['5101','CC-OPS'],artist:['5102','CC-OPS'],mkt:['5103','CC-SAL'],stage:['5104','CC-OPS'],sec:['5105','CC-OPS'],other:['5199','CC-FIN']};
+const SEED=()=>({
+ budget:{venue:{n:'ค่าเช่าสถานที่ (สนามกอล์ฟ)',b:1200000},artist:{n:'ค่าจ้างศิลปิน',b:3500000},mkt:{n:'การตลาดและโฆษณา',b:600000},stage:{n:'เวที แสง สี เสียง',b:1400000},sec:{n:'รักษาความปลอดภัย',b:500000},other:{n:'อื่นๆ',b:300000}},
+ tickets:[{n:'Early Bird',p:1500,q:1500,s:800,paid:800},{n:'Standard',p:2200,q:4000,s:1200,paid:1200},{n:'VIP',p:4500,q:800,s:300,paid:300}],
+ sponsorEst:1500000,sponsor:800000,
+ boothEstAmt:300000,boothAct:125000,
+ exp:[{id:1,cat:'venue',amt:1200000,why:'ค่าเช่าสนามกอล์ฟ',st:'approved',doc:true},{id:2,cat:'artist',amt:1800000,why:'ค่าจ้างศิลปิน งวดที่ 1',st:'approved',doc:true},{id:3,cat:'mkt',amt:250000,why:'โฆษณาออนไลน์',st:'approved',doc:true}],
+ nextId:4,status:'draft',msg:null,tab:'budget',role:'demo',
+ log:[{t:'09:00',who:'ระบบ',m:'โหลดข้อมูลตัวอย่าง: ผังบัญชี Pre-mapped GL / Cost Center พร้อมใช้งาน'}],
+ notif:[]
+});
+let S=SEED();
+const KEY='itm2026-pl-v5';
+try{const j=localStorage.getItem(KEY);if(j){S=Object.assign(SEED(),JSON.parse(j));S.msg=null}}catch(x){}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(x){}}
+const TABS=[['budget','1 งบประมาณ'],['income','2 รายได้'],['spend','3 เบิกจ่าย'],['pl','4 งบกำไรขาดทุน'],['guide','วิธีใช้']];
+const ROLES={demo:'ผู้สาธิต (ทำได้ทุกบทบาท)',head:'หัวหน้าแผนก',acc:'Accountant',mgr:'Accounting Manager',cfo:'CFO'};
+const PERM={submit:['head','acc'],resubmit:['head','acc'],reclassreq:['acc'],reclassok:['mgr'],cfo:['cfo'],sendcfo:['acc'],finalok:['cfo'],finalno:['cfo'],recon_fix:['acc'],transfer:['mgr','cfo'],budedit:['mgr','cfo']};
+const can=a=>S.role==='demo'||!PERM[a]||PERM[a].includes(S.role);
+const deny=a=>say('bad','ขั้นตอนนี้ทำได้เฉพาะ '+PERM[a].map(r=>ROLES[r]).join(' หรือ ')+' (เปลี่ยนที่ช่อง "บทบาทผู้ใช้" ด้านบน)');
+const f=n=>Math.round(n).toLocaleString('th-TH');
+const $=s=>document.querySelector(s);
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const ts=()=>new Date().toLocaleTimeString('th-TH',{hour:'2-digit',minute:'2-digit'});
+const who=()=>S.role==='demo'?'ผู้ใช้':ROLES[S.role];
+const logit=(w,m)=>{S.log.unshift({t:ts(),who:w,m});S.log.length=Math.min(S.log.length,40)};
+const notify=(to,m)=>{S.notif.unshift({to,m,t:ts()});S.notif.length=Math.min(S.notif.length,8)};
+const locked=()=>S.status==='final';
+const actual=k=>S.exp.filter(x=>x.cat===k&&x.st==='approved').reduce((a,x)=>a+x.amt,0);
+const budTotal=()=>Object.values(S.budget).reduce((a,x)=>a+x.b,0);
+const expTotal=()=>Object.keys(S.budget).reduce((a,k)=>a+actual(k),0);
+const ticketRev=()=>S.tickets.reduce((a,t)=>a+t.p*t.s,0);
+const ticketEst=()=>S.tickets.reduce((a,t)=>a+t.p*t.q,0);
+const boothRev=()=>S.boothAct;
+const boothEst=()=>S.boothEstAmt;
+const revTotal=()=>ticketRev()+S.sponsor+boothRev();
+const revEst=()=>ticketEst()+S.sponsorEst+boothEst();
+const netNow=()=>revTotal()-expTotal();
+const pending=()=>S.exp.filter(x=>x.st==='pending');
+const pendRc=()=>S.exp.filter(x=>x.rc);
+const reconEx=()=>S.tickets.filter(t=>t.s!==t.paid);
+const waiting=()=>pending().length+pendRc().length+reconEx().length;
+const STAT={draft:['t-wait','ฉบับร่าง (Draft)'],review:['t-wait','รอ CFO ตรวจ'],final:['t-lock','Final · ล็อกแล้ว']};
+const dis=()=>locked()?'disabled':'';
+const msgBox=()=>{const m=S.msg;S.msg=null;return m?`<div class="note ${m.t}">${m.m}</div>`:''};
+
+function kpis(){const p=netNow();
+ $('#kpis').innerHTML=`<div class="kpi"><i>รายได้จริง</i><b>฿${f(revTotal())}</b></div><div class="kpi"><i>ค่าใช้จ่ายจริง</i><b>฿${f(expTotal())}</b></div><div class="kpi"><i>กำไร (ขาดทุน)</i><b class="${p>=0?'pos':'neg'}">฿${f(p)}</b></div><div class="kpi"><i>รอดำเนินการ</i><b>${waiting()} รายการ</b></div><div class="kpi"><i>สถานะงบ</i><b>${STAT[S.status][1]}</b></div>`;}
+
+function vBudget(){
+ const rows=Object.entries(S.budget).map(([k,v])=>`<tr><td>${v.n}<span class="gl">GL ${GLX[k][0]} · ${GLX[k][1]}</span></td><td class="n"><input type="number" min="0" step="10000" value="${v.b}" data-c="bud" data-k="${k}" ${dis()}></td><td class="n">${f(actual(k))}</td><td class="n">${f(v.b-actual(k))}</td></tr>`).join('');
+ const opts=Object.entries(S.budget).map(([k,v])=>`<option value="${k}">${v.n}</option>`).join('');
+ return `<h2>กำหนดงบประมาณค่าใช้จ่าย</h2><p class="sub">ตั้งงบรายหมวดก่อนจัดงาน แต่ละหมวดผูกรหัสบัญชี (GL) และ Cost Center ไว้ล่วงหน้า (Pre-mapped) ระบบใช้ตัวเลขนี้เป็นเกณฑ์ตรวจการเบิกจ่ายในแท็บ 3</p>${msgBox()}
+ <table><tr><th>หมวดค่าใช้จ่าย</th><th class="n">งบประมาณ (บาท)</th><th class="n">เบิกจริงแล้ว</th><th class="n">คงเหลือ</th></tr>${rows}
+ <tr class="total"><td>รวมงบประมาณ</td><td class="n">${f(budTotal())}</td><td class="n">${f(expTotal())}</td><td class="n">${f(budTotal()-expTotal())}</td></tr></table>
+ <div class="note ok">ประมาณการรายได้รวม ฿${f(revEst())} เทียบกับงบค่าใช้จ่าย ฿${f(budTotal())} ประมาณการกำไรเบื้องต้น ฿${f(revEst()-budTotal())}</div>
+ <div class="card"><h3>จัดสรรงบใหม่ (โอนงบระหว่างหมวด)</h3><p class="sub">ใช้เมื่อ CFO ไม่อนุมัติรายการเกินงบ: โอนงบที่เหลือจากหมวดอื่นมาเพิ่ม แล้วกลับไปกด "ยื่นขอใหม่" ที่แท็บ 3 (ทำได้โดย Accounting Manager หรือ CFO)</p>
+ <div class="row"><label>จาก <select id="tr-from" ${dis()}>${opts}</select></label><label>ไปยัง <select id="tr-to" ${dis()}>${opts.replace('value="venue"','value="venue" ').replace(/<option value="artist">/,'<option value="artist" selected>')}</select></label><input type="number" id="tr-amt" min="0" step="10000" placeholder="จำนวนเงิน" ${dis()}><button class="b" data-a="transfer" ${dis()}>โอนงบ</button></div></div>`;}
+
+function vIncome(){
+ const rows=S.tickets.map((t,i)=>`<tr><td><b>${t.n}</b></td><td class="n">${f(t.p)}</td><td class="n">${f(t.q)}</td><td class="n">${f(t.s)}</td>
+ <td><div class="bar"><i style="width:${Math.min(100,t.s/t.q*100)}%"></i></div></td><td class="n">${f(t.p*t.s)}</td>
+ <td><button class="b" data-a="sell" data-i="${i}" data-n="10" ${dis()}>+10</button> <button class="b" data-a="sell" data-i="${i}" data-n="100" ${dis()}>+100</button> <button class="b alt" data-a="sell" data-i="${i}" data-n="-10" ${dis()}>−10</button></td></tr>`).join('');
+ const rec=S.tickets.map((t,i)=>{const d=t.s-t.paid;return `<tr><td>${t.n}</td><td class="n">${f(t.s)}</td><td class="n">${f(t.paid)}</td><td class="n">${d?f(d):'-'}</td><td>${d?'<span class="tag t-bad">Exception</span>':'<span class="tag t-ok">จับคู่อัตโนมัติ</span>'}</td><td>${d?`<button class="b" data-a="recon_fix" data-i="${i}" ${dis()}>ตรวจสอบและปรับ</button>`:`<button class="b alt" data-a="recon_sim" data-i="${i}" ${dis()}>จำลองยอดไม่ตรง</button>`}</td></tr>`}).join('');
+ const ex=reconEx().length;
+ return `<h2>ประมาณการและจัดเก็บรายได้</h2><p class="sub">ยอดขายบัตรเข้าระบบผ่าน API อัตโนมัติ (กดปุ่มเพื่อจำลองการขาย) ระบบบันทึกรายได้จริงเทียบกับประมาณการ</p>${msgBox()}
+ <table><tr><th>ประเภทบัตร<span class="gl">GL 4101 รายได้บัตรคอนเสิร์ต</span></th><th class="n">ราคา</th><th class="n">โควตา</th><th class="n">ขายแล้ว</th><th>สัดส่วน</th><th class="n">รายได้จริง</th><th>จำลองขาย</th></tr>${rows}
+ <tr class="total"><td colspan="5">รวมรายได้บัตร (ประมาณการ ${f(ticketEst())})</td><td class="n">${f(ticketRev())}</td><td></td></tr></table>
+ <div class="card"><h3>รายได้สปอนเซอร์ <span class="gl" style="display:inline">GL 4102</span></h3><div class="row"><span>ประมาณการ ฿${f(S.sponsorEst)}</span><label>รับจริง (บาท) <input type="number" min="0" step="50000" value="${S.sponsor}" data-c="sponsor" ${dis()}></label></div></div>
+ <div class="card" style="margin-top:14px"><h3>รายได้ค่าเช่าบูธอาหารและเครื่องดื่ม <span class="gl" style="display:inline">GL 4103</span></h3><div class="row"><span>ประมาณการ ฿${f(S.boothEstAmt)}</span><label>รับจริง (บาท) <input type="number" min="0" step="25000" value="${S.boothAct}" data-c="booth" ${dis()}></label></div></div>
+ <div class="card" style="margin-top:14px"><h3>Auto-Reconciliation: ยอดขายจาก API เทียบยอดรับเงินจากช่องทางชำระ</h3>
+ <div class="note ${ex?'':'ok'}">${ex?`พบ ${ex} รายการไม่ตรง บัญชีดูเฉพาะรายการ Exception นี้ และต้องเคลียร์ก่อนส่งงบให้ CFO`:'จับคู่ครบทุกรายการ ไม่มี Exception ให้ตรวจ'}</div>
+ <table><tr><th>ประเภทบัตร</th><th class="n">ยอดขายตามระบบ</th><th class="n">ยอดรับเงิน</th><th class="n">ผลต่าง</th><th>ผลการจับคู่</th><th></th></tr>${rec}</table></div>`;}
+
+function vSpend(){
+ const opts=Object.entries(S.budget).map(([k,v])=>`<option value="${k}">${v.n}</option>`).join('');
+ const pend=pending(),prc=pendRc();
+ const pBox=pend.length?`<div class="card"><h3>CFO พิจารณา (รายการเกินงบ)</h3>${pend.map(x=>{const b=S.budget[x.cat],aft=actual(x.cat)+x.amt;return `<div style="margin:10px 0"><div class="row"><span><b>${b.n}</b> ฿${f(x.amt)} · ${esc(x.why)}</span></div><div class="note">ผลกระทบต่อ P&amp;L ถ้าอนุมัติ: หมวดนี้ใช้ ${f(aft)} จากงบ ${f(b.b)} (เกิน ${f(aft-b.b)}) · กำไรสุทธิ ${f(netNow())} → ${f(netNow()-x.amt)}</div><div class="row"><button class="b grn" data-a="cfo" data-id="${x.id}" data-v="ok" ${dis()}>อนุมัติ</button><button class="b red" data-a="cfo" data-id="${x.id}" data-v="no" ${dis()}>ไม่อนุมัติ (ตีกลับ)</button></div></div>`}).join('')}</div>`:'';
+ const rBox=prc.length?`<div class="card"><h3>Accounting Manager พิจารณา (ขอแก้หมวดบัญชี)</h3>${prc.map(x=>`<div class="row"><span>${esc(x.why)} ฿${f(x.amt)}: ${S.budget[x.cat].n} → <b>${S.budget[x.rc].n}</b></span><button class="b grn" data-a="reclassok" data-id="${x.id}" data-v="ok" ${dis()}>อนุมัติ</button><button class="b red" data-a="reclassok" data-id="${x.id}" data-v="no" ${dis()}>ไม่อนุมัติ (ส่งกลับแก้ไข)</button></div>`).join('')}</div>`:'';
+ const log=S.exp.slice().reverse().map(x=>{const c={approved:['t-ok','อนุมัติแล้ว'],pending:['t-wait','รอ CFO'],rejected:['t-bad','ตีกลับ ให้จัดสรรงบใหม่']}[x.st];
+  let act='';
+  if(x.st==='rejected')act=`<button class="b" data-a="resubmit" data-id="${x.id}" ${dis()}>ยื่นขอใหม่</button>`;
+  else if(x.st==='approved'&&!x.rc){const o=Object.entries(S.budget).filter(([k])=>k!==x.cat).map(([k,v])=>`<option value="${k}">${v.n}</option>`).join('');act=`<select id="rc-${x.id}" ${dis()}>${o}</select> <button class="b alt" data-a="reclassreq" data-id="${x.id}" ${dis()}>ขอแก้หมวด</button>`}
+  else if(x.rc)act=`<span class="tag t-wait">รอ Acc. Manager อนุมัติแก้หมวด</span>`;
+  return `<tr><td>${S.budget[x.cat].n}<span class="gl">GL ${GLX[x.cat][0]} · ${GLX[x.cat][1]}</span></td><td>${esc(x.why)}</td><td class="n">${f(x.amt)}</td><td><span class="tag ${c[0]}">${c[1]}</span></td><td>${act}</td></tr>`}).join('');
+ return `<h2>เบิกจ่ายตามงบประมาณ</h2><p class="sub">ผ่านแบบฟอร์ม E-Expense Portal: ต้องแนบเอกสาร, ไม่เกินงบ อนุมัติอัตโนมัติ, เกินงบ ส่ง CFO พร้อมแสดงผลกระทบต่อ P&amp;L ส่วนรายการที่ลงผิดหมวดแก้ผ่าน Workflow ของ Acc. Manager</p>${msgBox()}
+ <div class="grid"><div class="card"><h3>แบบฟอร์มขอเบิก (E-Expense Portal)</h3>
+ <div class="row"><select id="f-cat" ${dis()}>${opts}</select></div>
+ <div class="row"><input type="number" id="f-amt" min="0" step="1000" placeholder="จำนวนเงิน (บาท)" ${dis()}></div>
+ <div class="row"><input id="f-why" placeholder="เหตุผล / รายละเอียด" style="width:100%" ${dis()}></div>
+ <div class="row"><label><input type="checkbox" id="f-doc" ${dis()}> แนบใบแจ้งหนี้ / สัญญาแล้ว</label></div>
+ <div class="row"><button class="b" data-a="submit" ${dis()}>ส่งขอเบิก</button></div></div>${pBox}${rBox}</div>
+ <table><tr><th>หมวด (GL · Cost Center)</th><th>รายละเอียด</th><th class="n">จำนวนเงิน</th><th>สถานะ</th><th>ดำเนินการ</th></tr>${log}</table>`;}
+
+function vPL(){
+ const rev=[['รายได้บัตรคอนเสิร์ต (GL 4101)',ticketEst(),ticketRev()],['รายได้สปอนเซอร์ (GL 4102)',S.sponsorEst,S.sponsor],['ค่าเช่าบูธอาหารและเครื่องดื่ม (GL 4103)',boothEst(),boothRev()]];
+ const rr=rev.map(r=>`<tr><td>${r[0]}</td><td class="n">${f(r[1])}</td><td class="n">${f(r[2])}</td><td class="n">${f(r[2]-r[1])}</td></tr>`).join('');
+ const er=Object.entries(S.budget).map(([k,v])=>{const a=actual(k),d=a-v.b,pc=v.b?d/v.b*100:0,w=v.b?Math.min(100,a/v.b*100):0;return `<tr><td>${v.n}<span class="gl">GL ${GLX[k][0]}</span></td><td class="n">${f(v.b)}</td><td class="n">${f(a)}</td><td class="n">${f(d)} (${pc.toFixed(1)}%)</td><td><div class="bar"><i class="${d>0?'over':''}" style="width:${w}%"></i></div></td><td><span class="tag ${d>0?'t-bad':'t-ok'}">${d>0?'เกินงบ':'ภายในงบ'}</span></td></tr>`}).join('');
+ const np=netNow(),npE=revEst()-budTotal();
+ let act='';
+ if(S.status==='draft')act=`<button class="b" data-a="sendcfo">ส่ง CFO ตรวจงบ</button>`;
+ if(S.status==='review')act=`<input id="cfo-why" placeholder="เหตุผลกรณีตีกลับ (ถ้ามี)" style="width:260px"> <button class="b grn" data-a="finalok">CFO อนุมัติ (Final)</button> <button class="b red" data-a="finalno">CFO ตีกลับ</button>`;
+ if(S.status==='final')act=`<span class="tag t-lock">Final · ล็อกตัวเลขแล้ว ไม่สามารถแก้ไขได้</span> <button class="b alt" data-a="reset">เริ่มใหม่</button>`;
+ const fin=S.status==='final'?`<div class="card" style="margin:14px 0"><h3>Final Report · In the Mood Music Festival 2026</h3><table><tr><td>รายได้รวม</td><td class="n">${f(revTotal())}</td></tr><tr><td>ค่าใช้จ่ายรวม</td><td class="n">${f(expTotal())}</td></tr><tr class="total"><td>กำไร (ขาดทุน) สุทธิ</td><td class="n">${f(np)}</td></tr><tr><td>Budget Variance</td><td class="n">${budTotal()?((expTotal()-budTotal())/budTotal()*100).toFixed(1):0}%</td></tr><tr><td>รายการเกินงบที่ CFO อนุมัติ</td><td class="n">${S.exp.filter(x=>x.st==='approved'&&x.over).length}</td></tr></table><div class="row noprint"><button class="b" onclick="window.print()">พิมพ์ / บันทึกเป็น PDF</button></div></div>`:'';
+ const nt=S.notif.length?S.notif.map(n=>`<li><b>ถึง ${n.to}</b> ${esc(n.m)} <small>${n.t}</small></li>`).join(''):'<li><small>ยังไม่มีการแจ้งเตือน</small></li>';
+ const lg=S.log.slice(0,14).map(l=>`<li><small>${l.t}</small> <b>${esc(l.who)}</b> ${esc(l.m)}</li>`).join('');
+ return `<h2>งบกำไรขาดทุน (คำนวณอัตโนมัติ)</h2><p class="sub">รวมข้อมูลจากแท็บ 1 ถึง 3 เป็นงบ P&amp;L ฉบับร่างอัตโนมัติ CFO ตรวจผ่านหน้านี้ ตีกลับให้แก้ที่ต้นทางหรืออนุมัติเพื่อ Lock และออก Final Report</p>${msgBox()}
+ <table><tr><th>รายได้</th><th class="n">ประมาณการ</th><th class="n">จริง</th><th class="n">ผลต่าง</th></tr>${rr}<tr class="total"><td>รวมรายได้</td><td class="n">${f(revEst())}</td><td class="n">${f(revTotal())}</td><td class="n">${f(revTotal()-revEst())}</td></tr></table>
+ <table><tr><th>ค่าใช้จ่าย</th><th class="n">งบประมาณ</th><th class="n">จริง</th><th class="n">ผลต่าง (Actual − Budget)</th><th>การใช้งบ</th><th>สถานะ</th></tr>${er}<tr class="total"><td>รวมค่าใช้จ่าย</td><td class="n">${f(budTotal())}</td><td class="n">${f(expTotal())}</td><td class="n">${f(expTotal()-budTotal())}</td><td></td><td></td></tr></table>
+ <table><tr class="total"><td>กำไร (ขาดทุน) สุทธิ</td><td class="n">ประมาณการ ${f(npE)}</td><td class="n">จริง <b>${f(np)}</b> ${np>=0?'(กำไร)':'(ขาดทุน)'}</td></tr></table>
+ <div class="row">สถานะ: <span class="tag ${STAT[S.status][0]}">${STAT[S.status][1]}</span> ${act}</div>${fin}
+ <p class="sub">หมายเหตุ: งบจะส่ง CFO ได้เมื่อไม่มีรายการเกินงบ รายการขอแก้หมวด หรือ Exception จากการกระทบยอดค้างอยู่</p>
+ <div class="cols2"><div class="card"><h3>การแจ้งเตือนอัตโนมัติ</h3><ul class="log">${nt}</ul></div><div class="card"><h3>Audit Trail (ลงบัญชีและการอนุมัติ)</h3><ul class="log">${lg}</ul></div></div>`;}
+
+function vGuide(){return `<h2>วิธีใช้ Prototype</h2><p class="sub">Prototype นี้ทำตามกระบวนการ TO-BE ทั้ง 4 หัวข้อ ช่อง "บทบาทผู้ใช้" ด้านบนใช้สลับบทบาท ถ้าเลือกบทบาทใดจะกดได้เฉพาะขั้นตอนของบทบาทนั้น (ค่าเริ่มต้นคือผู้สาธิต ทำได้ทุกอย่าง)</p><ol class="guide">
+ <li><b>แท็บ 1 งบประมาณ:</b> ดูงบรายหมวดพร้อมรหัส GL / Cost Center ที่ผูกไว้ล่วงหน้า ปรับงบได้ และมีช่อง "โอนงบ" ใช้จัดสรรงบใหม่หลัง CFO ไม่อนุมัติ</li>
+ <li><b>แท็บ 2 รายได้:</b> กด +10 / +100 เพื่อจำลองยอดขายบัตรผ่าน API จากนั้นดูตาราง Auto-Reconciliation กด "จำลองยอดไม่ตรง" เพื่อสร้าง Exception แล้วกด "ตรวจสอบและปรับ" (Accountant)</li>
+ <li><b>แท็บ 3 เบิกจ่าย:</b> กรอกแบบฟอร์ม ต้องติ๊กแนบเอกสาร ถ้าอยู่ในงบอนุมัติอัตโนมัติ ถ้าเกินงบ CFO เห็นผลกระทบต่อกำไรแล้วกดอนุมัติหรือตีกลับ รายการที่ถูกตีกลับให้โอนงบที่แท็บ 1 แล้วกด "ยื่นขอใหม่" ส่วนรายการที่ลงผิดหมวดกด "ขอแก้หมวด" (Accountant) แล้ว Acc. Manager อนุมัติ ระบบปรับ GL ให้เอง</li>
+ <li><b>แท็บ 4 งบกำไรขาดทุน:</b> ดู P&amp;L อัตโนมัติและแถบการใช้งบ กด "ส่ง CFO ตรวจงบ" (ต้องเคลียร์ทุกรายการค้างก่อน) CFO อนุมัติเพื่อ Lock และออก Final Report หรือตีกลับพร้อมเหตุผลให้แจ้งเตือนไปที่ Accountant ด้านล่างมีการแจ้งเตือนอัตโนมัติและ Audit Trail ของทุกขั้นตอน</li></ol>
+ <div class="row"><button class="b alt" data-a="reset">รีเซ็ตข้อมูลตัวอย่าง</button></div>
+ <p class="sub">ลองเล่นตามเส้นทาง: (1) เบิกหมวดการตลาด 500,000 บาท เห็นรายการส่งถึง CFO (2) CFO ไม่อนุมัติ (3) โอนงบที่แท็บ 1 (4) ยื่นขอใหม่ที่แท็บ 3 (5) ส่งงบที่แท็บ 4 แล้ว CFO อนุมัติ Final</p>`;}
+
+const V={budget:vBudget,income:vIncome,spend:vSpend,pl:vPL,guide:vGuide};
+function render(){
+ $('#role').innerHTML=Object.entries(ROLES).map(([k,v])=>`<option value="${k}" ${S.role===k?'selected':''}>${v}</option>`).join('');
+ $('#nav').innerHTML=TABS.map(t=>`<button class="${S.tab===t[0]?'on':''}" data-tab="${t[0]}">${t[1]}</button>`).join('');
+ $('#main').innerHTML=V[S.tab]();kpis();save();}
+function say(t,m){S.msg={t,m}}
+const catName=k=>S.budget[k].n;
+const post=(dr,cr,amt)=>`ลงบัญชีอัตโนมัติ Dr ${dr} / Cr ${cr} ฿${f(amt)}`;
+
+document.addEventListener('click',e=>{
+ const tb=e.target.closest('[data-tab]');if(tb){S.tab=tb.dataset.tab;S.msg=null;try{location.hash=S.tab}catch(x){}render();return}
+ const b=e.target.closest('[data-a]');if(!b||b.disabled)return;const a=b.dataset.a,d=b.dataset;
+ if(PERM[a]&&!can(a)){deny(a);render();return}
+ if(a==='sell'){const t=S.tickets[+d.i],old=t.s;t.s=Math.max(0,Math.min(t.q,t.s+(+d.n)));const dl=t.s-old;t.paid=Math.max(0,t.paid+dl);if(dl)logit('API ขายบัตร',`${dl>0?'+':''}${dl} ใบ ${t.n} · ${post('1101 เงินฝากธนาคาร','4101 รายได้บัตร',Math.abs(dl)*t.p)}`);}
+ else if(a==='recon_sim'){const t=S.tickets[+d.i];if(t.s<5)say('bad','ยังไม่มียอดขายพอให้จำลอง กดขายบัตรก่อน');else{t.paid=t.s-5;logit('ระบบ',`Auto-Reconciliation พบ Exception ${t.n}: ยอดรับเงินน้อยกว่ายอดขาย 5 ใบ`);notify('Accountant',`Exception ในการกระทบยอด ${t.n} ต่าง 5 ใบ`);say('wait','ระบบจับคู่อัตโนมัติแล้ว พบ 1 Exception ให้บัญชีตรวจเฉพาะรายการนี้');}}
+ else if(a==='recon_fix'){const t=S.tickets[+d.i];t.paid=t.s;logit(who(),`ตรวจสอบและปรับยอดรับเงิน ${t.n} ให้ตรงกับระบบ`);say('ok','ปรับยอดแล้ว Exception ถูกเคลียร์');}
+ else if(a==='transfer'){const fr=$('#tr-from').value,to=$('#tr-to').value,amt=+$('#tr-amt').value;
+  if(fr===to)say('bad','เลือกหมวดต้นทางและปลายทางให้ต่างกัน');
+  else if(!(amt>0))say('bad','กรุณาใส่จำนวนเงินมากกว่า 0');
+  else if(amt>S.budget[fr].b-actual(fr))say('bad',`หมวดต้นทางมีงบคงเหลือโอนได้ไม่เกิน ฿${f(S.budget[fr].b-actual(fr))}`);
+  else{S.budget[fr].b-=amt;S.budget[to].b+=amt;logit(who(),`โอนงบ ฿${f(amt)} จาก ${catName(fr)} ไป ${catName(to)}`);say('ok','โอนงบแล้ว กลับไปกด "ยื่นขอใหม่" ที่แท็บ 3 ได้');}}
+ else if(a==='submit'){
+  const cat=$('#f-cat').value,amt=+$('#f-amt').value,why=$('#f-why').value.trim(),doc=$('#f-doc').checked;
+  if(!(amt>0))say('bad','กรุณาใส่จำนวนเงินมากกว่า 0');
+  else if(!why)say('bad','กรุณาระบุเหตุผลในการเบิก');
+  else if(!doc)say('bad','ระบบไม่รับรายการ: ต้องแนบเอกสาร (Preventive Control) ก่อนกดส่ง');
+  else{const ok=actual(cat)+amt<=S.budget[cat].b;const x={id:S.nextId++,cat,amt,why,st:ok?'approved':'pending',doc,over:!ok};S.exp.push(x);
+   if(ok)logit('ระบบ',`อนุมัติอัตโนมัติ ${esc(why)} · ${post(GLX[cat][0]+' '+catName(cat),'2201 เจ้าหนี้',amt)}`);
+   else{logit('ระบบ',`${why} เกินงบหมวด ${catName(cat)} ส่ง CFO`);notify('CFO',`รายการเกินงบรอพิจารณา ${catName(cat)} ฿${f(amt)}`);}
+   say(ok?'ok':'wait',ok?'อนุมัติอัตโนมัติ: อยู่ในงบประมาณ ระบบลงบัญชีแล้ว':'เกินงบประมาณของหมวดนี้: ส่งเรื่องถึง CFO เพื่อพิจารณา');}}
+ else if(a==='cfo'){const x=S.exp.find(y=>y.id==d.id);
+  if(d.v==='ok'){x.st='approved';logit('CFO',`อนุมัติรายการเกินงบ ${x.why} · ${post(GLX[x.cat][0]+' '+catName(x.cat),'2201 เจ้าหนี้',x.amt)}`);say('ok','CFO อนุมัติรายการเกินงบ ระบบลงบัญชีและบันทึก Audit Trail');}
+  else{x.st='rejected';logit('CFO',`ไม่อนุมัติ ${x.why} ตีกลับให้จัดสรรงบใหม่`);notify('หัวหน้าแผนก',`CFO ไม่อนุมัติ "${x.why}" ให้จัดสรรงบใหม่แล้วยื่นขอใหม่`);say('bad','CFO ไม่อนุมัติ: ตีกลับให้จัดสรรงบใหม่ที่แท็บ 1 แล้วกด "ยื่นขอใหม่"');}}
+ else if(a==='resubmit'){const x=S.exp.find(y=>y.id==d.id);const ok=actual(x.cat)+x.amt<=S.budget[x.cat].b;x.st=ok?'approved':'pending';x.over=!ok;
+  if(ok){logit('ระบบ',`ยื่นใหม่ ${x.why} อยู่ในงบแล้ว · ${post(GLX[x.cat][0]+' '+catName(x.cat),'2201 เจ้าหนี้',x.amt)}`);say('ok','ยื่นใหม่: อยู่ในงบแล้ว อนุมัติอัตโนมัติ');}
+  else{logit('ระบบ',`ยื่นใหม่ ${x.why} ยังเกินงบ ส่ง CFO`);notify('CFO',`ยื่นใหม่ ยังเกินงบ ${catName(x.cat)} ฿${f(x.amt)}`);say('wait','ยังเกินงบอยู่ ส่ง CFO อีกครั้ง (ลองโอนงบเพิ่มที่แท็บ 1)');}}
+ else if(a==='reclassreq'){const x=S.exp.find(y=>y.id==d.id);x.rc=$('#rc-'+x.id).value;logit(who(),`ขอแก้หมวด ${x.why}: ${catName(x.cat)} → ${catName(x.rc)}`);notify('Accounting Manager',`ขออนุมัติแก้หมวด "${x.why}"`);say('wait','ส่งขอแก้หมวดให้ Acc. Manager อนุมัติแล้ว');}
+ else if(a==='reclassok'){const x=S.exp.find(y=>y.id==d.id);
+  if(d.v==='ok'){const o=x.cat;x.cat=x.rc;delete x.rc;logit('Acc. Manager',`อนุมัติแก้หมวด ระบบปรับปรุง GL อัตโนมัติ Dr ${GLX[x.cat][0]} / Cr ${GLX[o][0]} ฿${f(x.amt)}`);say('ok','อนุมัติแล้ว ระบบปรับปรุง GL อัตโนมัติและบันทึก Audit Trail');}
+  else{delete x.rc;logit('Acc. Manager',`ไม่อนุมัติการแก้หมวด ${x.why} ส่งกลับแก้ไข`);notify('Accountant',`ไม่อนุมัติการแก้หมวด "${x.why}" ให้ตรวจแก้ไข`);say('bad','ไม่อนุมัติ: ส่งกลับให้บัญชีแก้ไข');}}
+ else if(a==='sendcfo'){const n=[];if(pending().length)n.push(`${pending().length} รายการเกินงบรอ CFO`);if(pendRc().length)n.push(`${pendRc().length} รายการขอแก้หมวดรออนุมัติ`);if(reconEx().length)n.push(`${reconEx().length} Exception การกระทบยอดที่แท็บ 2`);
+  if(n.length)say('bad','ยังส่งงบไม่ได้ ต้องเคลียร์ก่อน: '+n.join(', '));else{S.status='review';logit(who(),'ส่งงบฉบับร่างให้ CFO ตรวจ');notify('CFO','งบกำไรขาดทุนฉบับร่างพร้อมตรวจ');say('wait','ส่งงบฉบับร่างให้ CFO ตรวจผ่านระบบแล้ว');}}
+ else if(a==='finalok'){S.status='final';logit('CFO','อนุมัติงบ ระบบ Lock ตัวเลขและออก Final Report');say('ok','CFO อนุมัติ ระบบ Lock ตัวเลขและออก Final Report');}
+ else if(a==='finalno'){const w=($('#cfo-why')||{}).value||'';S.status='draft';logit('CFO','ตีกลับงบ'+(w.trim()?': '+w.trim():''));notify('Accountant','CFO ตีกลับงบ'+(w.trim()?': '+w.trim():'')+' ให้แก้ที่ต้นทาง');say('bad','CFO ตีกลับ: ผู้รับผิดชอบแก้ที่ต้นทาง ระบบคำนวณใหม่ทันที');}
+ else if(a==='reset'){const t=S.tab,r=S.role;S=SEED();S.tab=t;S.role=r;}
+ render();});
+document.addEventListener('change',e=>{
+ if(e.target.id==='role'){S.role=e.target.value;S.msg=null;render();return}
+ const c=e.target.dataset.c;if(!c)return;
+ if(c==='bud'&&!can('budedit')){deny('budedit');render();return}
+ const v=Math.max(0,+e.target.value||0);
+ if(c==='bud'){S.budget[e.target.dataset.k].b=v;logit(who(),`ปรับงบ ${catName(e.target.dataset.k)} เป็น ฿${f(v)}`)}if(c==='sponsor')S.sponsor=v;if(c==='booth')S.boothAct=v;render();});
+try{const h=location.hash.slice(1);if(V[h])S.tab=h}catch(x){}
+render();
+</script></body></html>
